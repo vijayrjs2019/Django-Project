@@ -1,0 +1,90 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+ 
+<div class="container-fluid py-5">
+   <div class="container py-0">
+         <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 col-md-8">
+               {% if form.errors %}
+                  {% for field in form %}
+                     {% for error in field.errors %}
+                        <div class="alert alert-danger alert-dismissible">
+                           <strong>{{ field.label }}:</strong> {{ error }}
+                        </div>
+                     {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                     <div class="alert alert-danger alert-dismissible">
+                        <strong>Error:</strong> {{ error }}
+                     </div>
+                  {% endfor %}
+               {% endif %}
+            </div>
+            <div class="col-lg-8 col-md-8">
+                  <div class="card">
+                     <div class="card-header">
+                        Registration
+                     </div>
+                     <form action="{% url 'registrations' %}" method="post" enctype="multipart/form-data" id="registrationsPageForm">
+                        {% csrf_token %}
+                           <div class="card-body">
+                                 <div class="row">
+                                       <div class="col-md-6">
+                                          <div class="form-group mt-2">
+                                             <label for="exampleInputEmail1">First name:</label>
+                                             <input type="text" class="form-control" id="p_first_name" name="first_name"> 
+                                          </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                          <div class="form-group mt-2">
+                                             <label for="exampleInputEmail1">Last name:</label>
+                                             <input type="text" class="form-control" id="p_last_name" name="last_name"> 
+                                          </div>
+                                       </div>
+                                 </div>
+                                 <div class="row">
+                                       <div class="col-md-6">
+                                          <div class="form-group mt-2">
+                                             <label for="exampleInputEmail1">Username:</label>
+                                             <input type="txet" class="form-control" id="p_username" name="username"> 
+                                          </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                          <div class="form-group mt-2">
+                                             <label for="exampleInputEmail1">Email:</label>
+                                             <input type="email" class="form-control" id="p_email" name="email"> 
+                                          </div>
+                                       </div>
+                                 </div>
+                                 <div class="row">
+                                       <div class="col-md-6">
+                                          <div class="form-group mt-2">
+                                             <label for="exampleInputEmail1">Password:</label>
+                                             <input type="password" class="form-control" id="p_password1" name="password1"> 
+                                          </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                          <div class="form-group mt-2">
+                                             <label for="exampleInputEmail1">Confirm Password:</label>
+                                             <input type="password" class="form-control" id="p_password2" name="password2"> 
+                                          </div>
+                                       </div>
+                                 </div>
+                                 <div class="row mt-3">
+                                       <div class="col-md-12 text-center">
+                                          <button type="submit" class="btn btn-primary mt-2" id="reg_page_butt_frm">Register Account</button>
+                                       </div> 
+                                 </div>
+                           </div>
+                     </form>
+                     <div class="card-footer"><p class="message mb-0 text-center">Already have an account ? <a href="{% url 'loginPage' %}">Login</a></p></div>
+                  </div>
+            </div>
+         </div>
+   </div>
+</div> 
+{% endblock %}

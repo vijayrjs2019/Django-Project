@@ -1,0 +1,144 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+<!-- 404 Start -->
+<div class="container-fluid py-5">
+   <div class="container py-0 text-center">
+      <div class="row msg">
+            <div class="col-lg-12 col-md-12 mx-auto">
+                  {% if messages %}
+                        {% for message in messages %}
+                              <div class="alert {% if message.tags == 'error' %} alert-danger {% else  %}  alert-success {% endif %} alert-dismissible">
+                                    {{ message }} 
+                              </div>
+                        {% endfor %}
+                  {% endif %}
+            </div>
+      </div>
+      <div class="row">
+         {% include 'pages/userInfo/side_bar.html' %}
+         <div class="col-lg-10 col-md-12">
+            <div class="row">
+               <div class="col-lg-12 col-md-12">
+                  <div class="card text-start">
+                     <div class="card-header">
+                        Image Gallery
+                        <div class="float-right"><a href="javascript:void(0)" class="btn btn-primary rounded-pill py-0 px-4 ms-lg-4" onclick="addImageOnGallery()">Add image</a></div>
+                     </div>
+                     <div class="card-body">
+                        <table id="example" class="example table table-striped table-bordered">
+                           <thead>
+                              <tr>
+                                 <th>#</th>
+                                 <th>Title</th>
+                                 <th>Image</th>
+                                 <th>Category</th>
+                                 <th>Country</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for imageItem in user_images_list %}
+                              <tr>
+                                 <td>{{forloop.counter}}</td>
+                                 <td>{{imageItem.title}}</td>
+                                 <td>
+                                    <a href="javascript:void(0)" onclick="displayImageOnGallery('{{imageItem.thumbnail_image.url}}')">
+                                    <img class="img-fluid rounded" src="{{imageItem.thumbnail_image.url}}" style="width: 100px;height: 40px;">
+                                    </a>
+                                 </td>
+                                 <td>{{ imageItem.category.category_name }}</td>
+                                 <td>{{ imageItem.country.country_name }}</td>
+                                 <td>
+                                    <button type="button" class="btn btn-primary  btn-sm" onclick="displayImageOnGallery('{{imageItem.thumbnail_image.url}}')"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm" id="deleteBtn" onclick="confirmDeleteItem('{{ imageItem.id }}','image')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                 </td>
+                              </tr>
+                              {% endfor %} 
+                           </tbody> 
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<!-- The Add Image On GalleryModal Modal -->
+<div class="modal fade" id="myAddImageOnGalleryModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header">
+            <h4 class="modal-title">Add Image</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+         </div>
+         <form action="" method="post" enctype="multipart/form-data" id="userAddImageOnGalleryForm">
+            {% csrf_token %}
+         <!-- Modal body -->
+         <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Title:</label>
+                    <input type="text" class="form-control" id="img_title" placeholder="Enter Title" name="img_title">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Category:</label> 
+                    <select class="form-control" id="img_category" name="img_category">
+                        <option value="">Select Category</option>
+                        {% for category in categories_list %}
+                           <option value="{{category.id}}">{{category.category_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div> 
+                <div class="mb-3">
+                    <label  class="form-label">Country:</label>
+                    <select class="form-control" id="img_country" name="img_country">
+                        <option value="">Select Country</option>
+                        {% for country in country_list %}
+                        <option value="{{country.id}}">{{country.country_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="pwd" class="form-label">Thumbnail image:</label>
+                    <input type="file" class="form-control" id="thumbnail_image" name="thumbnail_image">
+                </div> 
+         </div>
+         <!-- Modal footer -->
+         <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="uaig_butt_frm">Save</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+         </div>
+         </from>
+      </div>
+   </div>
+</div>
+
+
+<!-- The Display Image On  Modal -->
+<div class="modal fade" id="myDisplayImageOnGalleryModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header">
+            <h4 class="modal-title">Image</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+         </div>
+         <!-- Modal body -->
+         <div class="modal-body">
+              <img class="img-fluid rounded" id="user_image_display" src="">    
+         </div>
+         <!-- Modal footer -->
+         <div class="modal-footer"> 
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div> 
+{% endblock %}

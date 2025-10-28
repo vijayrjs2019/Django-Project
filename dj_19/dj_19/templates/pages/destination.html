@@ -1,0 +1,68 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+ 
+        <!-- Destination Start -->
+        <div class="container-fluid destination py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+                    <h5 class="section-title px-3">Destination</h5>
+                    <h1 class="mb-0">Popular Destination</h1>
+                </div>
+                <div class="tab-class text-center">
+                    <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+                        <li class="nav-item">
+                            <a class="d-flex mx-3 py-2 border border-primary bg-light rounded-pill {% if country_id == None %} active {% endif %}" href="{% url 'destination' %}">
+                                <span class="text-dark" style="width: 150px;">All</span>
+                            </a>
+                        </li>
+                        {% for country_item in country_list %}
+                        <li class="nav-item">
+                            <a class="d-flex py-2 mx-3 border border-primary bg-light rounded-pill {% if country_id == country_item.id %} active {% endif %}" href="{% url 'destination_country_id' country_item.id %}">
+                                <span class="text-dark" style="width: 150px;">{{country_item.country_name}}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                           
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="row g-4">
+                                <div class="col-xl-12">
+                                    <div class="row g-4">
+                                        {% for country, data in grouped_by_country.items %}
+                                        <div class="col-lg-4">
+                                            <div class="destination-img">
+                                                <img class="img-fluid rounded w-100" src="{{ data.latest_image.thumbnail_image.url }}" alt="">
+                                                <div class="destination-overlay p-4">
+                                                    <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">{{ data.count }} Photos</a>
+                                                    <h4 class="text-white mb-2 mt-3">{{ country }}</h4>
+                                                    <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                                </div>
+                                                <div class="search-icon">
+                                                    <a href="{{ data.latest_image.thumbnail_image.url }}" data-lightbox="destination-1"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <h3>Record not found</h3>
+                                        </div>
+                                        {% endfor %}
+                                          
+                                    </div>
+                                </div>
+                                   
+                            </div>
+                        </div>
+                           
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Destination End -->
+
+{% endblock %}
