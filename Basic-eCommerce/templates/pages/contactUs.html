@@ -1,0 +1,68 @@
+{% extends 'main_templates.html' %}
+
+{% block content %}
+<section class="contact_section  long_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <div class="heading_container">
+              <h2>
+                Contact Us
+              </h2>
+              {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                    <p style="color: red; font-size: 12px;">{{ message }}</p>
+                  {% elif message.tags == 'success' %}
+                    <p style="color: green; font-size: 12px;">{{ message }}</p>
+                  {% else %}
+                    <p style="font-size: 12px;">{{ message }}</p>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              <!-- {% if successmessage %}
+                <p style="color: green;font-size: 12px;">{{ successmessage }}</p>
+              {% endif %}
+              {% if errormessage %}
+                <p style="color: red;font-size: 12px;">{{ errormessage }}</p>
+              {% endif %} -->
+            </div>
+            <form action="{% url 'contactUs' %}" method="post" id="contact_us">
+              {% csrf_token %}
+              <div>
+                <input type="text" placeholder="Your Name"  id="user_name" name="user_name"/>
+              </div>
+              <div>
+                <input type="text" placeholder="Phone Number"  id="user_phone" name="user_phone"/>
+              </div>
+              <div>
+                <input type="email" placeholder="Email"  id="user_email" name="user_email"/>
+              </div>
+              <div>
+                <input type="text" class="message-box" placeholder="Message"  id="user_message" name="user_message"/>
+              </div>
+              <div class="btn_box">
+                <button id="save_butt" >
+                  SEND
+                </button>
+                <button class="btn btn-primary" id="loader_butt" disabled>
+                  <span class="spinner-border spinner-border-sm"></span>
+                    Please wait..
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="map_container">
+            <div class="map">
+              <div id="googleMap"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock%}

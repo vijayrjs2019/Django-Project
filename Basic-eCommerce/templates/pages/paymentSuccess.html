@@ -1,0 +1,31 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<section class="about_section layout_padding long_section">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-md-5">
+            <div class="message-box _success">
+               <i class="fa fa-check-circle" aria-hidden="true"></i>
+               <h2> Your payment was successful </h2>
+               <p> Thank you for your payment. we will <br>
+                  be in contact with more details shortly 
+               </p>
+               <p class="mt-3"><a href="{% url 'furnitures' %}" class="btn btn-info">Back</a></p>
+            </div>
+         </div>
+      </div>
+      <!--   
+         <div class="row justify-content-center">
+                   <div class="col-md-5">
+                       <div class="message-box _success _failed">
+                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                           <h2> Your payment failed </h2>
+                    <p>  Try again later </p> 
+                
+                   </div> 
+               </div> 
+           </div>  -->
+   </div>
+</section>
+{% endblock%}

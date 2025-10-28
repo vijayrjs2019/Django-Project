@@ -1,0 +1,111 @@
+{% load static %}
+<div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section long_section px-0">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <span>
+            {{site_name | default:'Edgecut' }}
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""> </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+            <ul class="navbar-nav"> 
+              <li class="nav-item {% if request.path == '/' %} active cum-active {% endif %}">
+                <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item {% if request.path == '/about-us/' %} active cum-active {% endif %}">
+                <a class="nav-link" href="{% url 'about' %}"> About</a>
+              </li> 
+              <li class="nav-item {% if 'furnitures' in request.path or 'checkout' in request.path %} active cum-active {% endif %}">
+                <a class="nav-link" href="{% url 'furnitures' %}">Furnitures</a>
+              </li>
+              <li class="nav-item {% if '/blog/' in request.path %} active cum-active {% endif %}">
+                <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+              </li>
+              <li class="nav-item {% if request.path == '/contact-us' %} active cum-active {% endif %}">
+                <a class="nav-link" href="{% url 'contactUs' %}">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+          <div class="quote_btn-container">
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                {{site_phone_no}}
+              </span>
+              
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                {{site_email}}
+              </span>
+              
+            </a>
+             
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- end header section -->
+    {% if request.path == '/' %} 
+    <!-- slider section -->
+    <section class="slider_section long_section">
+      <div id="customCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          {% if sliderList %}
+          {% for slider in sliderList %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="detail-box">
+                    <h1>
+                     {{slider.slide_title}} 
+                    </h1>
+                    <p>
+                      {{slider.slide_description}} 
+                    </p>
+                    <div class="btn-box">
+                      {% if slider.slide_buttont_ext_1 %}
+                      <a href="{{slider.slide_buttont_ext_1}}" class="btn1">
+                        {{slider.slide_buttont_ext_1}}
+                      </a>
+                      {% endif %}
+                      {% if slider.slide_buttont_ext_2 %}
+                      <a href="{{slider.slide_buttont_ext_2}}" class="btn1">
+                        {{slider.slide_buttont_ext_2}}
+                      </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <div class="img-box">
+                    <img src="/media/{{slider.slide_image}} " alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %} 
+          {% endif %}
+          
+        </div>
+        <ol class="carousel-indicators">
+          {% if sliderList %}
+          {% for slider in sliderList %}
+          <li data-target="#customCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} ></li>
+          {% endfor %} 
+          {% endif %}
+        </ol>
+      </div>
+    </section>
+    <!-- end slider section -->
+     {%  endif %}
+  </div>

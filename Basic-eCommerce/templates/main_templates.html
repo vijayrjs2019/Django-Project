@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+{% include 'include/head.html' %}
+
+<body {% if request.path != "/" %} class="sub_page" {% endif %}>
+
+{% include 'include/menu.html' %}
+  
+  {% block content %}
+
+  {% endblock %}
+  <!-- end contact section -->
+  {% include 'include/footer.html' %}
+  {% include 'include/script.html' %}
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{% extends 'main_templates.html' %}
+
+{% block content %}
+{% load static %}
+<section class="about_section layout_padding long_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="img-box">
+                    <img src="/media/{{blogDetail.image}}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>
+                            {{blogDetail.title}}
+                        </h2>
+                    </div>
+                    {{blogDetail.description | safe}}
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock%}

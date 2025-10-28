@@ -1,0 +1,186 @@
+{% extends 'main_templates.html' %}
+
+{% block content %}
+{% load static %} 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<section class="about_section layout_padding long_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading_container">
+                    <h2 class="text-center">
+                        Check out
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Review & Payment</div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Item</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/media/{{product_info.product_image}}" alt="Product 1" width="60" style="margin-right: 10px;">
+                                        <span>{{product_info.product_name}}</span>
+                                      </div>
+                                </td>
+                                <td class="text-center"><i class="fa fa-inr" aria-hidden="true"></i> {{product_info.product_price}}</td>
+                                <td class="text-center">{{quantity}}</td>
+                                <td class="text-center"><i class="fa fa-inr" aria-hidden="true"></i> {% widthratio product_info.product_price 1 quantity %}</td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                  <td colspan="3" class="text-right">Cart Sub Total</td>
+                                  <td class="text-center"><i class="fa fa-inr" aria-hidden="true"></i> {{sub_total}}</td>
+                                </tr>
+                                  <tr>
+                                    <td colspan="3" class="text-right">Shipping Cost</td>
+                                    <td class="text-center">
+                                      {% if shippingCost.cost_apply_type == 'Free' %}
+                                          Free
+                                      {% else %}
+                                        <i class="fa fa-inr" aria-hidden="true"></i> {{ shippingCost.cost_value }}
+                                      {% endif %}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="3" class="text-right">Exo Tax <em>(In {{ taxSetting.text_apply_type }})</em></td>
+                                    <td class="text-center"><i class="fa fa-inr" aria-hidden="true"></i> {{apply_tax}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="3" class="text-right font-weight-bolder">Total</td>
+                                    <td class="text-center font-weight-bolder"><i class="fa fa-inr" aria-hidden="true"></i> {{total_price}}</td>
+                                  </tr>
+                              </tfoot>
+                          </table>
+                    </div>
+                </div>
+            </div>    
+        </div>   
+        <div class="row">
+            <div class="col-md-12">
+              <form method="POST" action="" id="processToPayment_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card">
+                    <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="text">First Name:</label>
+                                        <input type="text" class="form-control" placeholder="Enter First Name" id="first_name" name="first_name">
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="text">Last Name:</label>
+                                        <input type="text" class="form-control" placeholder="Enter Last Name" id="last_name" name="last_name">
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="email">Email address:</label>
+                                        <input type="email" class="form-control" placeholder="Enter email" id="email" name="email">
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="text">Phone No:</label>
+                                        <input type="text" class="form-control" placeholder="Enter Phone No" id="phone_no" name="phone_no">
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="country">Country:</label>
+                                        <input type="text" class="form-control" placeholder="Enter Country" id="country" name="country">
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="state">State:</label>
+                                        <input type="text" class="form-control" placeholder="Enter State" id="state" name="state">
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="city">City:</label>
+                                        <input type="text" class="form-control" placeholder="Enter City" id="city" name="city">
+                                      </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="zip_code">Zip Code:</label>
+                                        <input type="text" class="form-control" placeholder="Enter Zip Code" id="zip_code" name="zip_code">
+                                      </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="delivery_address">Delivery Address :</label>
+                                        <input type="text" class="form-control" placeholder="Enter Delivery Address" id="delivery_address" name="delivery_address">
+                                      </div>
+                                </div> 
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group mb-0">
+                                      <label for="delivery_address">Payment Mode :</label>
+                                  </div>
+                                  <div class="form-check mb-2">
+                                    <label class="form-check-label cum-font-size">
+                                      <input type="radio" class="form-check-input" name="payment_method" value="Razorpay" checked>Razorpay
+                                    </label>
+                                  </div>
+                                  <div class="form-check mb-2">
+                                    <label class="form-check-label cum-font-size">
+                                      <input type="radio" class="form-check-input" name="payment_method" value="Cash On Delivery">Cash On Delivery
+                                    </label>
+                                  </div>
+                              </div> 
+                          </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button  class="btn btn-info" id="save_butt" >Pay Now</button>
+                                        <button class="btn btn-primary" id="loader_butt" disabled>
+                                          <span class="spinner-border spinner-border-sm"></span>
+                                            Please wait..
+                                        </button>
+                                      </div>
+                                </div> 
+                            </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="product_id" value="{{product_info.id}}">
+                  <input type="hidden" name="product_price" value="{{product_info.product_price}}">
+                  <input type="hidden" name="quantity" value="{{quantity}}">
+                  <input type="hidden" name="sub_total" value="{{sub_total}}">
+                  <input type="hidden" name="shipping_type" value="{{shippingCost.cost_apply_type}}">
+                  <input type="hidden" name="shipping_cost" value="{{shippingCost.cost_value}}">
+                  <input type="hidden" name="tax_apply_type" value="{{taxSetting.text_apply_type}}">
+                  <input type="hidden" name="tax_value" value="{{taxSetting.tax_value}}">
+                  <input type="hidden" name="total_apply_tax" value="{{apply_tax}}">
+                  <input type="hidden" name="total_pay_amount" value="{{total_price}}">
+                  {% csrf_token %}
+              </form>   
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock%}

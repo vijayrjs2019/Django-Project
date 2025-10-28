@@ -1,0 +1,69 @@
+{% extends 'main_templates.html' %}
+
+{% block content %}
+{% load static %}
+<section class="furniture_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        Our Furniture
+      </h2>
+      <p>
+        which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure
+        there isn't an
+      </p>
+    </div>
+    <div class="row justify-content-end">
+      <div class="col-md-6 col-lg-4 d-flex align-items-center">
+          <form class="d-flex w-100 justify-content-end" method="post"> 
+            {% csrf_token %}
+              <input type="text" class="form-control me-2" id="product_name" name="product_name" placeholder="Search item"> 
+              <button type="submit" class="btn btn-info">Search</button>
+          </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="list-group cum-list">
+          <li class="list-group-item {% if not category_id %}active{% endif %}"><a href="{% url 'furnitures' %}">All Furnitures</a></li>
+          {%  for citem in category %}
+          <li class="list-group-item {% if category_id == citem.id %}active{% endif %}"><a href="{% url 'furnitures_by_category' citem.id %}">{{citem.category_name}}</a></li>
+          {% endfor %} 
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          {% for pItem in products  %}
+          <div class="col-md-6 col-lg-4">
+            <div class="box mt-0 mb-5">
+              <div class="img-box">
+                <img src="/media/{{pItem.product_image}}" alt="">
+              </div>
+              <div class="detail-box">
+                <h6>
+                  <a href="{% url 'furnituresDetail' pItem.slug %}" class="text-dark">{{pItem.product_name}}</a>
+                </h6>
+                <div class="price_box">
+                  <h6 class="price_heading">
+                    <span><i class="fa fa-inr" aria-hidden="true"></i></span> {{pItem.product_price}}
+                  </h6>
+                  <a href="{% url 'furnituresDetail' pItem.slug %}" class="btn btn-info text-white">
+                    Buy Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+            <div class="col-md-12 text-center mt-5">
+              <h4>No Products Found</h4>
+            </div>            
+          {% endfor %}
+           
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock%}

@@ -1,0 +1,111 @@
+{% load static %}
+<!-- info section -->
+<section class="info_section long_section">
+
+  <div class="container">
+    <div class="contact_nav">
+      <a href="">
+        <i class="fa fa-phone" aria-hidden="true"></i>
+        <span>
+          Call : {{site_phone_no}}
+        </span>
+      </a>
+      <a href="">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+        <span>
+          Email : {{site_email}}
+        </span>
+      </a>
+      <a href="">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span>
+          Location : {{site_address}}
+        </span>
+      </a>
+    </div>
+
+    <div class="info_top ">
+      <div class="row ">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="info_links">
+            <h4>
+              QUICK LINKS
+            </h4>
+            <div class="info_links_menu">
+              <a class="" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+              <a class="" href="{% url 'about' %}"> About</a>
+              <a class="" href="{% url 'furnitures' %}">Furniture</a>
+              <a class="" href="{% url 'blog' %}">Blog</a>
+              <a class="" href="{% url 'contactUs' %}">Contact Us</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">
+          <div class="info_post">
+            <h5>
+              NEW PRODUCT
+            </h5>
+            <div class="post_box">
+              {% for fpItem in footer_product %}
+              <div class="img-box">
+                <a href="{% url 'furnituresDetail' fpItem.slug %}"><img src="/media/{{fpItem.product_image}}" alt=""></a>
+              </div>
+              {% endfor %}
+                
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="info_form">
+            <h4>
+              SIGN UP TO OUR NEWSLETTER
+            </h4>
+            
+            <form action="{% url 'subscribe' %}" method="post" id="subscribeFrom">
+              {% csrf_token %}
+              <input type="text" placeholder="Enter Your Email" name="email" id="email"/>
+              {% if message %}
+                <p style="color: red;font-size: 12px;">{{ message }}</p>
+              {% endif %}
+              <label for="email" class="error"></label><br>
+              <button type="submit" id="save_butt" >
+                Subscribe
+              </button>
+              <button class="btn btn-primary" id="loader_butt" disabled>
+                <span class="spinner-border spinner-border-sm"></span>
+                  Please wait..
+              </button>
+            </form>
+            <div class="social_box">
+              <a href="{{facebook_link}}" target="_blank">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="{{twitter_link}}" target="_blank">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="{{linkedin_link}}" target="_blank">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="{{instagram_link}}" target="_blank">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end info_section -->
+
+
+<!-- footer section -->
+<footer class="footer_section">
+  <div class="container">
+    <p>
+      &copy; <span id="displayYear"></span> All Rights Reserved By
+      <a href="{{devedeveloped_url}}" target="_blank">{{devedeveloped_by}}</a>
+    </p>
+  </div>
+</footer>
+<!-- footer section -->
