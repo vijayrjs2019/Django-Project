@@ -1,3 +1,15 @@
+# 🛒 Travel Inquiry and Package Booking System
+
+## 🔑 Key Features
+
+1. 🏝️ **Package Listing & Detail Pages** — Display all travel packages with detailed information.  
+2. ✉️ **Custom Inquiry Listing & Detail Pages** — Manage and view all customer inquiries with full details.  
+3. 💳 **Checkout System** — Integrated with **Razorpay** and **Cash on Delivery (COD)** payment options.  
+4. 🔐 **Secure Order Placement** — Ensures safe and verified transaction flow with order tracking.  
+5. ⚙️ **Admin Panel** — Manage packages, inquiries, payments, site information, sliders, blogs, and settings.  
+6. 👤 **User Panel** — View booked packages, track inquiries, and receive notifications.  
+7. 📱 **Responsive UI** — Optimized for seamless experience on mobile, tablet, and desktop devices.
+
 # [🛒 Basic eCommerce Website Using Django](https://github.com/vijayrjs2019/Django-Project/tree/main/Basic-eCommerce)
 
 ## 🔑 Key Features
