@@ -1,4 +1,4 @@
-# 🛒 Basic eCommerce Website Using Django
+# [🛒 Basic eCommerce Website Using Django](https://github.com/vijayrjs2019/Django-Project/tree/main/Basic-eCommerce)
 
 ## 🔑 Key Features
 
@@ -7,3 +7,4 @@
 3. 🔐 **Secure Order Placement** — Ensures safe transaction flow and order tracking.  
 4. ⚙️ **Admin Panel** — Manage products, payment gateway setup, site info, sliders, blogs, and settings.  
 5. 📱 **Responsive UI** — Optimized for mobile, tablet, and desktop devices.
+
