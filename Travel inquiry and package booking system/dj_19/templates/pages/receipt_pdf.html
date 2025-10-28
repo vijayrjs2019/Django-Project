@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; }
+        h1 { color: #336699; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .total { text-align: right; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">{{siteData.site_name}}</h1>
+    <p style="text-align: center;"><strong>{{siteData.site_email}}</strong> | <strong>{{siteData.site_phone}}</strong> | <strong>{{siteData.site_address}}</strong></p>
+    <p style="text-align: center;"><strong>{{devedeveloped_by}}</strong></p>
+    <div><hr style="height: 3px; background: #000;"></div>
+    <h4 style=" color: #336699;"><strong>Paid By</strong></h4>
+    <p>{{bookingData.name}}</p>
+    <p>{{bookingData.email}}</p>
+    <p>{{bookingData.phone_no}}</p>
+    <table> 
+            <tr>
+                <th> <h4 style=" color: #336699;">Booking Details</h4></th>
+                <th> <h4 style=" color: #336699;">Hotel Details</h4></th>
+            </tr>
+
+            <tr> 
+                <td>
+                    <p><strong>Departure date </strong> {{bookingData.departure_date}}</p>
+                    <p><strong>Destination</strong> {{bookingData.destination}}</p>
+                    <p><strong>Country</strong> {{bookingData.country.country_name}}</p> 
+                </td>
+                <td>
+                    <p><strong>Hotel type </strong> {{hotel_type_display}}</p>
+                    <p><strong>No Days</strong> {{bookingData.duration}}</p>
+                    <p><strong>No Person </strong> {{bookingData.no_person}} Person</p> 
+                </td>
+            </tr>
+    </table>
+    <table>
+        <thead>
+            <tr  style=" background: #336699;color: #fff;">
+                 <th>Description</th><th>Unit Price</th><th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr> 
+                <td>Hotel Booking</td>
+                <td>{{bookingData.sub_total_amount|floatformat:2}}</td>
+                <td>{{bookingData.sub_total_amount|floatformat:2}}</td>
+            </tr> 
+            <tr> 
+                <td colspan="2" style="text-align: right;">Sub Total</td>
+                <td>{{bookingData.sub_total_amount|floatformat:2}}</td>
+            </tr> 
+            <tr> 
+                <td colspan="2" style="text-align: right;">Tax</td>
+                <td>{{bookingData.other_charges_amount|floatformat:2}}</td>
+            </tr> 
+             <tr> 
+                <td colspan="2" style="text-align: right;">Total </td>
+                <td>{{bookingData.total_amount|floatformat:2}}</td>
+            </tr> 
+        </tbody>
+    </table> 
+</body>
+</html>

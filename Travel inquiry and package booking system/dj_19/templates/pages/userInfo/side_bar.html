@@ -1,0 +1,23 @@
+{% load static %}
+<div class="col-lg-2 col-md-12"> 
+    <div class="d-flex">
+        <div class="list-group w-100 text-center">
+            <a href="#" class="list-group-item list-group-item-action"> 
+                <b>{{ request.user.first_name|capfirst }} {{ request.user.last_name|capfirst }}</b>
+                {% if UserProfileInfo.profile_image %}
+                  <img src="{{ UserProfileInfo.profile_image.url }}" class="img-fluid w-100" style="height:65px !important" alt="" >
+                {% else %}
+                    <img src="{% static 'default_testimonial.jpg' %}" class="img-fluid w-100" style="height:65px !important" alt="">
+                {% endif %}
+                
+            </a>
+            <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action {% if request.path == '/dashboard/' %} active {% endif %}" aria-current="true"> Dashboard </a>
+            <a href="{% url 'bookingList' %}" class="list-group-item list-group-item-action {% if request.path == '/booking-list/' %} active {% endif %}">Booking List</a>
+            <a href="{% url 'travelEnquiry' %}" class="list-group-item list-group-item-action {% if request.path == '/travel-enquiry/' %} active {% endif %}"> Travel Enquiry </a>
+            <a href="{% url 'userGallery' %}" class="list-group-item list-group-item-action {% if request.path == '/user-gallery/' %} active {% endif %}">My Gallery</a>
+            <a href="{% url 'userProfile' %}" class="list-group-item list-group-item-action {% if request.path == '/user-profile/' %} active {% endif %}"> Update Profile</a>
+            <a href="{% url 'changePassword' %}" class="list-group-item list-group-item-action {% if request.path == '/change-password/' %} active {% endif %}"> Account Settings</a>
+            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action"><i class="fas fa-power-off me-2"></i>  Log Out</a>
+        </div>
+    </div>
+</div>

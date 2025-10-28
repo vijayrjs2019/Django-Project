@@ -1,0 +1,20 @@
+ <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>{{ site_name|default:'Travela & Tourism' }}</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="{% url 'home' %}" class="nav-item nav-link {% if request.path == '/' %} active {% endif %} ">Home</a>
+                        <a href="{% url 'destination' %}" class="nav-item nav-link {% if '/destination/' in request.path  %} active {% endif %}">Destination</a>
+                        <a href="{% url 'exploreTour' %}" class="nav-item nav-link {% if request.path == '/explore-tour/' %} active {% endif %}">Explore Tour</a>
+                        <a href="{% url 'services' %}" class="nav-item nav-link {% if '/services/' in request.path %} active {% endif %}">Services </a>
+                        <a href="{% url 'packages_list' %}" class="nav-item nav-link {% if '/packages/' in request.path %} active {% endif %}">Packages</a>
+                        <a href="{% url 'travelGuides' %}" class="nav-item nav-link {% if '/guide/' in request.path or request.path == '/travel-guides/' %}active{% endif %}">Travel Guides</a>
+                        <a href="{% url 'contact' %}" class="nav-item nav-link {% if request.path == '/contact/' %} active {% endif %}">Contact</a>
+                    </div>
+                    <a href="{% url 'booking' %}" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Enquiry</a>
+                </div>
+            </nav>

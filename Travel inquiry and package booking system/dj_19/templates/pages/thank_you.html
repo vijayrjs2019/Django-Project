@@ -1,0 +1,27 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+<!-- 404 Start -->
+<div class="container-fluid py-5" style="background: linear-gradient(rgba(19, 53, 123, 0.3), rgba(19, 53, 153, 0.3)); object-fit: cover;">
+   <div class="container py-5 text-center">
+         <div class="row justify-content-center">
+            <div class="col-lg-6"> 
+               <i class="fa fa-thumbs-up display-1 text-primary" aria-hidden="true"></i>
+               <h1 class="display-1">Thank you</h1>
+               {% if messages %}
+                     {% for message in messages %}
+                        <h1 class="mb-4 text-dark">{{ message }} </h1>
+                     {% endfor %}
+               {% endif %}
+               <p class="mb-4 text-dark">Thank you for registrations, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+               <a class="btn btn-primary rounded-pill py-3 px-5" href="{% url 'home' %}">Go Back To Home</a>
+            </div>
+         </div>
+   </div>
+</div>
+<!-- 404 End -->
+{% endblock %}

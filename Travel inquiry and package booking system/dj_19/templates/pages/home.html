@@ -1,0 +1,667 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- About Start -->
+<div class="container-fluid about py-5">
+   <div class="container py-5">
+      <div class="row g-5 align-items-center">
+         <div class="col-lg-5">
+            <div class="h-100" style="border: 50px solid; border-color: transparent #13357B transparent #13357B;">
+               {% if aboutUsInfo.image %}
+                  <img src="{{ aboutUsInfo.image.url }}" class="img-fluid w-100 h-100" alt="">
+               {% else %}
+                  <img src="{% static 'default_all.jpg' %}" class="img-fluid w-100 h-100" alt="">
+               {% endif %}
+            </div>
+         </div>
+         <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url({% static 'img/about-img-1.png' %});">
+            <h5 class="section-about-title pe-3">About Us</h5>
+            <h1 class="mb-4">{{aboutUsInfo.title}}</h1>
+            <p class="mb-4">{{aboutUsInfo.content|truncatechars:550|safe}}</p>
+            <div class="row gy-2 gx-4 mb-4">
+               <div class="col-sm-12">
+                  <p class="mb-0"> <a href=""><i class="fas fa-envelope me-2"></i> {{site_email}}</a></p>
+               </div>
+               <div class="col-sm-12">
+                  <p class="mb-0"><a href=""><i class="fa fa-phone-alt me-2"></i> {{site_phone}}</a></p>
+               </div>
+               <div class="col-sm-12">
+                  <p class="mb-0"><a href=""><i class="fa fa-map-marker-alt me-2"></i> {{site_address}} , {{site_city}} , {{site_contry}}</a></p>
+               </div>
+               
+            </div>
+            <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="{% url 'about' %}">Read More</a>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- About End -->
+<!-- Services Start -->
+<div class="container-fluid bg-light service py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Searvices</h5>
+         <h1 class="mb-0">Our Services</h1>
+      </div>
+      <div class="row g-4">
+         <div class="col-lg-6">
+            <div class="row g-4">
+               {% for left_item in left_ourServices %}
+               <div class="col-12">
+                  <a href="{% url 'servicesDetails' left_item.id %}">
+                     <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
+                        <div class="service-content text-end">
+                           <h5 class="mb-4">{{left_item.title|upper}}</h5>
+                           <p class="mb-0">{{left_item.discription|truncatechars:150|safe}}</p>
+                        </div>
+                        <div class="service-icon p-4">
+                           {% if left_item.image %}
+                              <img src="{{ left_item.image.url }}" alt="{{ left_item.title }}" class="img-fluid rounded-circle" style="width: 200px; height: 80px;">
+                           {% else %}
+                              <img src="{% static 'default_all.jpg' %}" alt="{{ left_item.title }}" class="img-fluid rounded-circle" style="width: 200px; height: 80px;">   
+                           {% endif %}
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               {% endfor %}
+                  
+            </div>
+         </div>
+         <div class="col-lg-6">
+            <div class="row g-4">
+               {% for right_item in right_ourServices %}
+               <div class="col-12">
+                  <a href="{% url 'servicesDetails' right_item.id %}">
+                     <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 ps-0">
+                        <div class="service-icon p-4">
+                           {% if right_item.image %}
+                              <img src="{{ right_item.image.url }}" alt="{{ right_item.title }}" class="img-fluid rounded-circle" style="width: 200px; height: 80px;">
+                           {% else %}
+                              <img src="{% static 'default_all.png' %}" alt="{{ right_item.title }}" class="img-fluid rounded-circle" style="width: 200px; height: 80px;">   
+                           {% endif %}
+                        </div>
+                        <div class="service-content">
+                           <h5 class="mb-4">{{right_item.title|upper}}</h5>
+                           <p class="mb-0">{{right_item.discription|truncatechars:150|safe}}</p>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               {% endfor %}
+                 
+            </div>
+         </div>
+         <div class="col-12">
+            <div class="text-center">
+               <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="{% url 'services' %}">Service More</a>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Services End -->
+<!-- Destination Start -->
+<div class="container-fluid destination py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Destination</h5>
+         <h1 class="mb-0">Popular Destination</h1>
+      </div>
+      <div class="tab-class text-center">
+         <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+            <li class="nav-item">
+               <a class="d-flex mx-3 py-2 border border-primary bg-light rounded-pill active" data-bs-toggle="pill" href="{% url 'destination' %}">
+               <span class="text-dark" style="width: 150px;">All</span>
+               </a>
+            </li>
+            {% for country_item in country_list %}
+            <li class="nav-item">
+               <a class="d-flex py-2 mx-3 border border-primary bg-light rounded-pill "  href="{% url 'destination_country_id' country_item.id %}">
+               <span class="text-dark" style="width: 150px;">{{country_item.country_name}}</span>
+               </a>
+            </li>
+            {% endfor %}
+             
+         </ul>
+         <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active">
+               <div class="row g-4">
+                  <div class="col-xl-12">
+                     <div class="row g-4">
+                        {% for country, data in grouped_by_country.items %}
+                        <div class="col-lg-4">
+                           <div class="destination-img">
+                              <img class="img-fluid rounded w-100" src="{{ data.latest_image.thumbnail_image.url }}" alt="">
+                              <div class="destination-overlay p-4">
+                                 <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">{{ data.count }} Photos</a>
+                                 <h4 class="text-white mb-2 mt-3">{{ country }}</h4>
+                                 <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                              </div>
+                              <div class="search-icon">
+                                 <a href="{{ data.latest_image.thumbnail_image.url }}" data-lightbox="destination-1"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                              </div>
+                           </div>
+                        </div>
+                         {% endfor %}
+                           
+                     </div>
+                  </div>
+                     
+               </div>
+            </div>
+            <div id="tab-2" class="tab-pane fade show p-0">
+               <div class="row g-4">
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-5.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-5.jpg' %}" data-lightbox="destination-5"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-6.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-6.jpg' %}" data-lightbox="destination-6"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="tab-3" class="tab-pane fade show p-0">
+               <div class="row g-4">
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-5.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-5.jpg' %}" data-lightbox="destination-5"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-6.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-6.jpg' %}" data-lightbox="destination-6"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="tab-4" class="tab-pane fade show p-0">
+               <div class="row g-4">
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-5.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-5.jpg' %}" data-lightbox="destination-5"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-6.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-6.jpg' %}" data-lightbox="destination-6"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="tab-5" class="tab-pane fade show p-0">
+               <div class="row g-4">
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-5.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-5.jpg' %}" data-lightbox="destination-5"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-6.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-6.jpg' %}" data-lightbox="destination-6"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="tab-6" class="tab-pane fade show p-0">
+               <div class="row g-4">
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-5.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-5.jpg' %}" data-lightbox="destination-5"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="destination-img">
+                        <img class="img-fluid rounded w-100" src="{% static 'img/destination-6.jpg' %}" alt="">
+                        <div class="destination-overlay p-4">
+                           <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">20 Photos</a>
+                           <h4 class="text-white mb-2 mt-3">San francisco</h4>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="search-icon">
+                           <a href="{% static 'img/destination-6.jpg' %}" data-lightbox="destination-6"><i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i></a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Destination End -->
+<!-- Explore Tour Start -->
+<div class="container-fluid ExploreTour py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Explore Tour</h5>
+         <h1 class="mb-4">The World</h1>
+         <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum tempore nam, architecto doloremque velit explicabo? Voluptate sunt eveniet fuga eligendi! Expedita laudantium fugiat corrupti eum cum repellat a laborum quasi.
+         </p>
+      </div>
+      <div class="tab-class text-center">
+         
+         <div class="tab-content">
+            <div id="NationalTab-1" class="tab-pane fade show p-0 active">
+               <div class="row g-4">
+                  {% for tour_team in tour_list %} 
+                  <div class="col-md-6 col-lg-4">
+                     <div class="national-item"> 
+                        {% if tour_team.category_thumbnail_image %}
+                        <img src="{{tour_team.category_thumbnail_image.url}}" class="img-fluid w-100 rounded" style="height: 200px;" alt="Image">
+                        {% else %}
+                        <img src="{% static 'default_all.jpg' %}" class="img-fluid w-100 rounded" style="height: 200px;" alt="Image">
+                        {% endif %}
+                        <div class="national-content">
+                           <div class="national-info">
+                              <h5 class="text-white text-uppercase mb-2">{{tour_team.category_name}}</h5>
+                              <a href="{% url 'packages' tour_team.id %}" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                           </div>
+                        </div>
+                        <div class="national-plus-icon">
+                           <a href="{% url 'packages' tour_team.id %}" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+                     
+               </div>
+            </div>
+             
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Explore Tour Start -->
+<!-- Packages Start -->
+<div class="container-fluid packages py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Packages</h5>
+         <h1 class="mb-0">Awesome Packages</h1>
+      </div>
+      <div class="packages-carousel owl-carousel">
+         {% for travel_item in travel_packages %}
+         <div class="packages-item">
+            <div class="packages-img"> 
+               <a href="{% url 'packagesInfo' travel_item.slug %}">
+                  {% if travel_item.thumbnail_image %}
+                     <img src="{{ travel_item.thumbnail_image.url }}" class="img-fluid w-100 rounded-top" alt="Image">
+                  {% else %}
+                     <img src="{% static 'default_all.jpg' %}" class="img-fluid w-100 rounded-top" alt="Image">
+                  {% endif %}
+               </a>
+               <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
+                  <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>{{travel_item.destination}}-{{travel_item.country}}</small>
+                  <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>{{travel_item.duration}} days</small>
+                  <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>{{travel_item.no_person}} Person</small>
+               </div>
+               <div class="packages-price py-2 px-4">${{travel_item.price}}</div>
+            </div>
+            <div class="packages-content bg-light">
+               <a href="{% url 'packagesInfo' travel_item.slug %}">
+                  <div class="p-4 pb-0">
+                     <h5 class="mb-0">{{travel_item.package_name}}</h5>
+                     <small class="text-uppercase">{{travel_item.category}}</small>
+                     <div class="mb-3">
+                        <small class="text-uppercase">{{travel_item.country}}</small> 
+                     </div>
+                     <p class="mb-4">{{travel_item.description|safe|truncatechars:120}}</p>
+                  </div>
+               </a>
+               <div class="row bg-primary rounded-bottom mx-0">
+                  <div class="col-6 text-start px-0">
+                     <a href="{% url 'packagesInfo' travel_item.slug %}" class="btn-hover btn text-white py-2 px-4">Read More</a>
+                  </div>
+                  <div class="col-6 text-end px-0">
+                     <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+            
+      </div>
+   </div>
+</div>
+<!-- Packages End -->
+<!-- Gallery Start -->
+<div class="container-fluid gallery py-5 my-5">
+   <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+      <h5 class="section-title px-3">Our Gallery</h5>
+      <h1 class="mb-4">Tourism & Traveling Gallery.</h1>
+      <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum tempore nam, architecto doloremque velit explicabo? Voluptate sunt eveniet fuga eligendi! Expedita laudantium fugiat corrupti eum cum repellat a laborum quasi.
+      </p>
+   </div>
+   <div class="tab-class text-center">
+      <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+         <li class="nav-item">
+            <a class="d-flex mx-3 py-2 border border-primary bg-light rounded-pill active" href="{% url 'gallery' %}">
+            <span class="text-dark" style="width: 150px;">All</span>
+            </a>
+         </li>
+         {% for cItem in categoriesList %}
+         <li class="nav-item">
+            <a class="d-flex py-2 mx-3 border border-primary bg-light rounded-pill"  href="{% url 'gallery_category_id' cItem.id %}">
+            <span class="text-dark" style="width: 150px;">{{cItem.category_name}}</span>
+            </a>
+         </li>
+         {% endfor %}
+            
+      </ul>
+      <div class="tab-content">
+         <div id="GalleryTab-1" class="tab-pane fade show p-0 active">
+            <div class="row g-2">
+               {% for gallery_item in our_gallery %}
+               <div class="col-sm-6 col-md-6 col-lg-4 {% if forloop.counter0|divisibleby:10 %} col-xl-2 {% elif forloop.counter0|divisibleby:2 %} col-xl-3 {% else %} col-xl-2 {% endif %}">
+                  <div class="gallery-item h-100">
+                     <img src="{{gallery_item.thumbnail_image.url}}" class="img-fluid w-100 h-100 rounded" alt="Image">
+                     <div class="gallery-content">
+                        <div class="gallery-info">
+                           <h5 class="text-white text-uppercase mb-2">{{ gallery_item.category.category_name }}</h5>
+                           <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                        </div>
+                     </div>
+                     <div class="gallery-plus-icon">
+                        <a href="{{gallery_item.thumbnail_image.url}}" data-lightbox="gallery-1" class="my-auto"><i class="fas fa-plus fa-2x text-white"></i></a>
+                     </div>
+                  </div>
+               </div>
+                {% endfor %}
+                    
+            </div>
+         </div>
+            
+      </div>
+   </div>
+</div>
+<!-- Gallery End -->
+<!-- Tour Booking Start -->
+<div class="container-fluid booking py-5">
+   <div class="container py-5">
+      <div class="row g-5 align-items-center">
+         <div class="col-lg-6">
+            <h5 class="section-booking-title pe-3">Booking</h5>
+            <h1 class="text-white mb-4">Online Booking</h1>
+            <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
+            </p>
+            <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
+            </p>
+            <a href="#" class="btn btn-light text-primary rounded-pill py-3 px-5 mt-2">Read More</a>
+         </div>
+         <div class="col-lg-6">
+            <h1 class="text-white mb-3">Book A Tour Deals</h1>
+            <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Travela. Get More Deal Offers Here.</p>
+            <form>
+               <div class="row g-3">
+                  <div class="col-md-6">
+                     <div class="form-floating">
+                        <input type="text" class="form-control bg-white border-0" id="name" placeholder="Your Name">
+                        <label for="name">Your Name</label>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-floating">
+                        <input type="email" class="form-control bg-white border-0" id="email" placeholder="Your Email">
+                        <label for="email">Your Email</label>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-floating date" id="date3" data-target-input="nearest">
+                        <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
+                        <label for="datetime">Date & Time</label>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-floating">
+                        <select class="form-select bg-white border-0">
+                           <option value="1">Destination 1</option>
+                           <option value="2">Destination 2</option>
+                           <option value="3">Destination 3</option>
+                        </select>
+                        <label>Destination</label>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-floating">
+                        <select class="form-select bg-white border-0" id="SelectPerson">
+                           <option value="1">Persons 1</option>
+                           <option value="2">Persons 2</option>
+                           <option value="3">Persons 3</option>
+                        </select>
+                        <label for="SelectPerson">Persons</label>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-floating">
+                        <select class="form-select bg-white border-0" id="CategoriesSelect">
+                           <option value="1">Kids</option>
+                           <option value="2">1</option>
+                           <option value="3">2</option>
+                           <option value="3">3</option>
+                        </select>
+                        <label for="CategoriesSelect">Categories</label>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="form-floating">
+                        <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                        <label for="message">Special Request</label>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Tour Booking End -->
+<!-- Travel Guide Start -->
+<div class="container-fluid guide py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Travel Guide</h5>
+         <h1 class="mb-0">Meet Our Guide</h1>
+      </div>
+      <div class="row g-4">
+         {% for itemGuide in otherGuide %}
+         <div class="col-md-6 col-lg-3">
+            <div class="guide-item">
+               <div class="guide-img">
+                  <div class="guide-img-efects">
+                     {% if itemGuide.image %}
+                     <a href="{% url 'travelGuidesInfo' itemGuide.id %}"><img src="{{itemGuide.image.url}}" class="img-fluid w-100 rounded-top" alt="Image" style="height: 250px; width: 300px; object-fit: cover;"></a>
+                     {% else %}
+                     <a href="{% url 'travelGuidesInfo' itemGuide.id %}"><img src="{% static 'default_guides.jpg' %}" class="img-fluid w-100 rounded-top" alt="Placeholder Image" style="height: 250px; width: 300px; object-fit: cover;"></a>
+                     {% endif %}
+                  </div>
+                  <div class="guide-icon rounded-pill p-2">
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{itemGuide.facebook_link}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{itemGuide.instagram_link}}" target="_blank"><i class="fab fa-instagram"></i></a>
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{itemGuide.twitter_link}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{itemGuide.youtube_link}}" target="_blank"><i class="fab fa-youtube"></i></a>
+                  </div>
+               </div>
+               <div class="guide-title text-center rounded-bottom p-4">
+                  <div class="guide-title-inner">
+                     <a href="{% url 'travelGuidesInfo' itemGuide.id %}"><h4 class="mt-3">{{itemGuide.name}}</h4></a> 
+                     <p class="mb-0"><b><i class="fa fa-phone-alt" aria-hidden="true"></i></b> {{itemGuide.phone_no}}</p>
+                     <p class="mb-0">{{itemGuide.email}}</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% empty %}
+         <div class="col-md-12 col-lg-12">
+            <h3 class="text-center">No Guides information added</h3>
+         </div>
+         {% endfor %}
+            
+      </div>
+   </div>
+</div>
+<!-- Travel Guide End -->
+<!-- Blog Start -->
+<div class="container-fluid blog py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Our Blog</h5>
+         <h1 class="mb-4">Popular Travel Blogs</h1>
+         <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti deserunt tenetur sapiente atque. Magni non explicabo beatae sit, vel reiciendis consectetur numquam id similique sunt error obcaecati ducimus officia maiores.
+         </p>
+      </div>
+      <div class="row g-4 justify-content-center">
+         {% for itemBlog in resentBlogs  %}
+         <div class="col-lg-4 col-md-6">
+            <div class="blog-item">
+               <div class="blog-img">
+                  <div class="blog-img-inner">
+                     <img class="img-fluid w-100 rounded-top" src="/media/{{itemBlog.image}}" alt="Image">
+                     <div class="blog-icon">
+                        <a href="{% url 'blogDetails' itemBlog.slug %}" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
+                     </div>
+                  </div>
+                  <div class="blog-info d-flex align-items-center border border-start-0 border-end-0">
+                     <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{itemBlog.created_at|date:"d M Y" }}</small>
+                     <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2"><i class="fa fa-thumbs-up text-primary me-2"></i>1.7K</a>
+                     <a href="#" class="btn-hover flex-fill text-center text-white py-2"><i class="fa fa-comments text-primary me-2"></i> {{ itemBlog.total_comments }}</a>
+                  </div>
+               </div>
+               <div class="blog-content border border-top-0 rounded-bottom p-4">
+                  <p class="mb-3">Posted By: Royal Hamblin </p>
+                  <a href="{% url 'blogDetails' itemBlog.slug %}" class="h4">{{itemBlog.title|truncatechars:48}}</a>
+                  <p class="my-3">{{ itemBlog.content|striptags|truncatechars:115 }}</p>
+                  <a href="{% url 'blogDetails' itemBlog.slug %}" class="btn btn-primary rounded-pill py-2 px-4">Read More</a>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+           
+      </div>
+   </div>
+</div>
+<!-- Blog End -->
+<!-- Testimonial Start -->
+<div class="container-fluid testimonial py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Testimonial</h5>
+         <h1 class="mb-0">Our Clients Say!!!</h1>
+      </div>
+      <div class="testimonial-carousel owl-carousel">
+         {% for testimonialItem in testimonials %}
+         <div class="testimonial-item text-center rounded pb-4">
+            <div class="testimonial-comment bg-light rounded p-4">
+               <p class="text-center mb-5">{{testimonialItem.message|safe|truncatechars:150}}</p>
+            </div>
+            <div class="testimonial-img p-1">
+               {% if testimonialItem.user_image %}
+               <img src="{{testimonialItem.user_image.url}}" class="img-fluid rounded-circle" alt="Image">
+               {% else %}
+               <img src="{% static 'default_testimonial.jpg' %}" class="img-fluid rounded-circle" alt="Image">   
+               {% endif %}
+            </div>
+            <div style="margin-top: -35px;">
+               <h5 class="mb-0">{{testimonialItem.name}}</h5>
+               <p class="mb-0">{{testimonialItem.country|upper}}</p>
+               <div class="d-flex justify-content-center">
+                  {% for i in "12345" %}
+                     {% if forloop.counter <= testimonialItem.rating %}
+                        <i class="fas fa-star text-primary"></i>  
+                     {% else %}
+                        <i class="fas fa-star text-muted"></i>  
+                     {% endif %}
+                  {% endfor %}
+                  
+                  
+                  <!-- <i class="fas fa-star text-primary"></i>
+                  <i class="fas fa-star text-primary"></i>
+                  <i class="fas fa-star text-primary"></i> -->
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+           
+      </div>
+   </div>
+</div>
+<!-- Testimonial End -->
+{% endblock %}

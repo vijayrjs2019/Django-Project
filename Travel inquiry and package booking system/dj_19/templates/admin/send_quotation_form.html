@@ -1,0 +1,104 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Send Quotation  | Django site admin{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+   <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a>
+    › <a href="{% url 'admin:Trave_Packages_Management_travelenquiry_changelist' %}">Travel Enquiry</a>
+    › Send Quotation
+</div>
+{% endblock %}
+ 
+{% block sidebar %}
+    {{ block.super }} 
+{% endblock %}
+{% block content %}
+<div id="content-main"> 
+
+  <div class="row">
+
+    <!-- Left Column: Enquiry Info Table -->
+    <div class="col-md-4">
+      <div class="module">
+        <table class="admin-table" width="100%"> 
+          <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ enquiry.name }}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{ enquiry.email }}</td>
+            </tr>
+            <tr>
+              <th>Phone</th>
+              <td>{{ enquiry.phone_no }}</td>
+            </tr>
+            <tr>
+              <th>Destination</th>
+              <td>{{ enquiry.destination }}</td>
+            </tr>
+            <tr>
+              <th>Departure date</th>
+              <td>{{ enquiry.departure_date }}</td>
+            </tr>
+            <tr>
+              <th>Category</th>
+              <td>{{ enquiry.category }}</td>
+            </tr>
+            <tr>
+              <th>Country</th>
+              <td>{{ enquiry.country }}</td>
+            </tr>
+            <tr>
+              <th>Duration</th>
+              <td> {{ enquiry.duration }} Day{{ enquiry.duration|pluralize }}</td>
+            </tr>
+            <tr>
+              <th>No person</th>
+              <td> {{ enquiry.no_person }} </td>
+            </tr>
+            <tr>
+              <th>Hotel type</th>
+              <td> {{ enquiry.get_hotel_type_display }}  </td>
+            </tr>
+            <tr>
+              <th>Tourdetails</th>
+              <td> 
+              {{ enquiry.tourdetails }} 
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right Column: Form -->
+    <div class="col-md-6">
+      <form method="post" class="form-row">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <div class="mt-2">
+          <input type="submit" value="Send Quotation" class="btn btn-success">
+          <a href="{% url 'admin:Trave_Packages_Management_travelenquiry_changelist' %}" class="btn btn-lg btn-danger rounded-1 text-white">Cancel</a>
+        </div>
+      </form>
+    </div>
+
+  </div> <!-- /.row -->
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,87 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+<!-- About Start -->
+<div class="container-fluid about py-5">
+   <div class="container py-5">
+      <div class="row g-5 align-items-center">
+         <div class="col-lg-5 text-center">
+            <div class="h-100" style="border: 50px solid; border-color: transparent #13357B transparent #13357B;">
+               <img src="/media/{{guideInfo.image}}" class="img-fluid w-100 h-100" alt="">
+              
+            </div>
+             <div class="d-inline-flex align-items-center" style="height: 45px;"> 
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.facebook_link}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.instagram_link}}" target="_blank"><i class="fab fa-instagram"></i></a>
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.twitter_link}}" target="_blank"><i class="fab fa-twitter"></i></a>
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.youtube_link}}" target="_blank"><i class="fab fa-youtube"></i></a> 
+             </div>
+         </div>
+         <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url({% static 'img/about-img-1.png' %});">
+            <h5 class="section-about-title pe-3">Guides Info</h5>
+            <h1 class="mb-4">{{guideInfo.name}}</h1>
+            <div class="d-inline-flex align-items-center" style="height: 45px;"> 
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.facebook_link}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.instagram_link}}" target="_blank"><i class="fab fa-instagram"></i></a>
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.twitter_link}}" target="_blank"><i class="fab fa-twitter"></i></a>
+               <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2 border-primary text-primary" href="{{guideInfo.youtube_link}}" target="_blank"><i class="fab fa-youtube"></i></a>
+             </div>
+            <p class="mb-4">{{guideInfo.description|safe}}</p>
+            <div class="row gy-2 gx-4 mb-4">
+                  <div class="col-sm-12 mb-1">
+                     <p class="mb-0"><i class="fa fa-phone-alt text-primary me-2"></i> {{guideInfo.phone_no}}</p>
+                  </div>
+                  <div class="col-sm-12 mb-1">
+                     <p class="mb-0"><i class="fa fa-envelope-open text-primary me-2"></i> {{guideInfo.email}}</p>
+                  </div>
+                  <div class="col-sm-12 mb-1">
+                     <p class="mb-0"><i class="fa fa-map-marker-alt text-primary me-2"></i> {{guideInfo.address}}</p>
+                  </div> 
+            </div>
+             
+         </div>
+      </div>
+        
+   </div>
+</div>
+<!-- About End -->
+<!-- Travel Guide Start -->
+<div class="container-fluid guide py-5">
+   <div class="container py-5">
+      <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+         <h5 class="section-title px-3">Other guides</h5>
+      </div>
+      <div class="row g-4">
+         {% for item in otherGuide  %}
+         <div class="col-md-6 col-lg-3">
+            <div class="guide-item">
+               <div class="guide-img">
+                  <div class="guide-img-efects">
+                    <a href="{% url 'travelGuidesInfo' item.id %}"> <img src="/media/{{item.image}}" class="img-fluid w-100 rounded-top" alt="Image" style="width: 261px; height: 305px;"></a>
+                  </div>
+                  <div class="guide-icon rounded-pill p-2">
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{item.facebook_link}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{item.instagram_link}}" target="_blank"><i class="fab fa-instagram"></i></a>
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{item.twitter_link}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                      <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{item.youtube_link}}" target="_blank"><i class="fab fa-youtube"></i></a>
+                  </div>
+               </div>
+               <div class="guide-title text-center rounded-bottom p-4">
+                  <div class="guide-title-inner">
+                     <a href="{% url 'travelGuidesInfo' item.id %}"><h4 class="mt-3">{{item.name}}</h4></a> 
+                     <p class="mb-0"><b><i class="fa fa-phone-alt" aria-hidden="true"></i></b> {{item.phone_no}}</p>
+                     <p class="mb-0">{{item.email}}</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+           
+      </div>
+   </div>
+</div>
+<!-- Travel Guide End -->
+{% endblock %}

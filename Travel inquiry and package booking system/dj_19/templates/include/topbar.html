@@ -1,0 +1,34 @@
+<div class="container-fluid bg-primary px-5 d-none d-lg-block">
+            <div class="row gx-0">
+                <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                    <div class="d-inline-flex align-items-center" style="height: 45px;">
+                        {% for linkInfo in social_links %}
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="{{linkInfo.social_media_url}}" target="_blank"><i class="{{linkInfo.social_media_icon}} fw-normal"></i></a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <div class="d-inline-flex align-items-center" style="height: 45px;">
+                        {% if user.is_authenticated and not user.is_superuser %}
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> Welcome , {{request.user.first_name |capfirst}} {{request.user.last_name |capfirst}} </small></a>
+                            <div class="dropdown-menu rounded">
+                                <a href="{% url 'dashboard' %}" class="dropdown-item"><i class="fas fa-home me-2"></i>Dashboard</a>
+                                <a href="{% url 'bookingList' %}" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Booking List</a>
+                                <a href="{% url 'travelEnquiry' %}" class="dropdown-item"><i class="fas fa-question-circle me-2"></i> Travel Enquiry</a>
+                                <a href="{% url 'userGallery' %}" class="dropdown-item"><i class="fas fa-camera-retro me-2"></i> Gallery</a>
+                                <a href="{% url 'userProfile' %}" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                                <a href="{% url 'changePassword' %}" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                                <a href="{% url 'logout' %}" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                            </div>
+                        </div>
+                        {% else  %}
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#myRegisterModal"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#myLoginModal"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                        {% endif %}
+                    </div> 
+                </div>
+            </div>
+        </div>
+{% include 'pages/auth/login.html' %}
+{% include 'pages/auth/register.html' %}

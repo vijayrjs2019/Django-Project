@@ -1,0 +1,8 @@
+.error{
+	color: red;
+	font-size: 12px;
+}
+
+.float-right{
+	float: right !important;
+}   

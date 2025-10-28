@@ -1,0 +1,54 @@
+<!-- The Login Modal -->
+<div class="modal fade" id="myLoginModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header">
+            <h4 class="modal-title">Login</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+         </div>
+         <form action="{% url 'loginPage' %}" method="post" enctype="multipart/form-data" id="loginPopupForm">
+         {% csrf_token %}
+         <!-- Modal body -->
+         <div class="modal-body">
+            <div class="row"> 
+                <div class="col-md-12">
+                  <div class="mb-3 d-flex justify-content-center gap-2">
+                     <button type="button" class="btn btn-primary cum-normal" onclick="loginWithOption('normal')">Normal Login</button>
+                     <button type="button" class="btn btn-light cum-face" onclick="loginWithOption('face')">By Face Detection</button>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+                  <div class="col-md-12">
+                      <div class="mb-3">
+                        <label class="form-label">Email:</label>
+                        <input type="text" class="form-control" id="p_username" placeholder="Enter email" name="username">
+                     </div>
+                  </div>
+
+                  <div class="col-md-12">
+                     <div class="mb-3">
+                        <label class="form-label">Password:</label>
+                        <input type="password" class="form-control" id="p_password" placeholder="Enter password" name="password">
+                     </div>
+                  </div>
+
+                  <div class="col-md-12">
+                      <div class="form-check mb-3">
+                        <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                        </label>
+                     </div> 
+                  </div> 
+            </div>
+         </div>
+         <!-- Modal footer -->
+         <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="login_popup_butt_frm">Login</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+         </div>
+         </form>
+      </div>
+   </div>
+</div>

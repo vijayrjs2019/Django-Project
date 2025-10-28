@@ -1,0 +1,225 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+<!-- 404 Start -->
+<div class="container-fluid py-5">
+   <div class="container py-0 text-center">
+      <div class="row msg">
+         <div class="col-lg-12 col-md-12 mx-auto">
+            {% if messages %}
+               {% for message in messages %}
+                  <div class="alert {% if message.tags == 'error' %} alert-danger {% else  %}  alert-success {% endif %} alert-dismissible">
+                        {{ message }} 
+                  </div>
+               {% endfor %}
+            {% endif %}
+         </div>
+      </div>
+      <div class="row">
+         {% include 'pages/userInfo/side_bar.html' %}
+         <div class="col-lg-10 col-md-12">
+            <div class="row">
+               <div class="col-lg-12 col-md-12">
+                  <div class="card text-start">
+                     <div class="card-header">
+                        Travel Enquiry
+                        <div class="float-right"><a href="{% url 'booking' %}" class="btn btn-primary rounded-pill py-0 px-4 ms-lg-4">Book Now</a></div>
+                     </div>
+                     <div class="card-body">
+                        <table id="example" class="example table table-striped table-bordered">
+                           <thead>
+                              <tr>
+                                 <th>#</th>
+                                 <th>Name</th>
+                                 <th>Departure date</th>
+                                 <th>No Days</th>
+                                 <th>No Person</th>
+                                 <th>Hotel type</th>
+                                 <th>Destination</th>
+                                 <th>Country</th>
+                                 <th>Quotation</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {% for enquery in travel_enquiry_list %}
+                              <tr>
+                                 <td>{{forloop.counter}}</td>
+                                 <td>{{enquery.name}}</td>
+                                 <td>{{enquery.departure_date}}</td>
+                                 <td>{{ enquery.duration }} Day{{ enquery.duration|pluralize }}</td>
+                                 <td>{{enquery.no_person}}</td>
+                                 <td>{{enquery.get_hotel_type_display}}</td>
+                                 <td>{{enquery.destination}}</td>
+                                 <td>{{enquery.country}}</td>
+                                 <td class="text-center"> 
+                                    {% if enquery.travelEnquiry_quotationInfo.exists %}
+
+                                        <button type="button" class="btn btn-info btn-sm text-white rounded-0" onclick="displayQuotation('{{ enquery.id }}')">Received</button> 
+                                    {% else %}
+                                       <span class="text-danger">No Quotation</span>
+                                    {% endif %}
+                                 </td>
+                                 <td>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="displayTravelEnquiry('{{ enquery.id }}')"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDeleteItem('{{ enquery.id }}','Enquiry')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                 </td>
+                              </tr>
+                              {% endfor %}
+                               
+                           </tbody> 
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<!-- The Display Travel Enquiry On  Modal -->
+<div class="modal fade" id="myDisplayTravelEnquiryModal">
+   <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header">
+            <h4 class="modal-title">Travel Enquiry</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+         </div>
+         <!-- Modal body -->
+         <div class="modal-body">   
+               <div class="row">
+                  <div class="col-md-6">
+                     <table class="table table-bordered">
+                           
+                           <tbody>
+                              <tr>
+                                 <th colspan="2" class="bg-primary text-white">Basic Info</th> 
+                              </tr>
+                              <tr>
+                                 <th>Name</th>
+                                 <td id="dte_name"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Email</th>
+                                 <td id="dte_email"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Phone</th>
+                                 <td id="dte_phone"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Created Date</th>
+                                 <td id="dte_created_date"></td> 
+                              </tr>
+                              <tr>
+                                 <th colspan="2" class="bg-primary text-white">Travel Details </th> 
+                              </tr>
+                              <tr>
+                                 <th>Departure date</th>
+                                 <td id="dte_departure_date"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Destination</th>
+                                 <td id="dte_destination"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Country</th>
+                                 <td id="dte_country"></td> 
+                              </tr>
+                              
+                           </tbody>
+                        </table> 
+                  </div>
+                  <div class="col-md-6">
+                     <table class="table table-bordered">
+                           
+                           <tbody>
+                               
+                              <tr>
+                                 <th colspan="2" class="bg-primary text-white">Hotel Details</th> 
+                              </tr>
+                              <tr>
+                                 <th>Hotel type</th>
+                                 <td id="dte_hotel_type"></td> 
+                              </tr>
+                              <tr>
+                                 <th>No Days</th>
+                                 <td id="dte_no_days"></td> 
+                              </tr>
+                              <tr>
+                                 <th>No Person</th>
+                                 <td id="dte_no_person"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Category</th>
+                                 <td id="dte_category"></td> 
+                              </tr>
+                              <tr>
+                                 <th colspan="2" class="bg-primary text-white">Additional info</th> 
+                              </tr>
+                              <tr>
+                                 <td colspan="2">
+                                    <div class="" id="dte_additional_info" style="height: 105px;overflow-y: scroll;"></div> 
+                                 </td> 
+                              </tr>
+                               
+                              
+                           </tbody>
+                        </table> 
+                  </div>
+               </div> 
+         </div>
+         <!-- Modal footer -->
+         <div class="modal-footer"> 
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+         </div>
+      </div>
+   </div>
+</div>  
+
+
+
+<!-- The Display Quotation On  Modal -->
+<div class="modal fade" id="myDisplayQuotationModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+         <!-- Modal Header -->
+         <div class="modal-header">
+            <h4 class="modal-title">Quotation Info</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+         </div>
+         <!-- Modal body -->
+         <div class="modal-body">   
+               <div class="row">
+                  <div class="col-md-12">
+                     <table class="table table-bordered">
+                           <tbody>
+                              <tr>
+                                 <th>Price</th>
+                                 <td id="dq_price"></td> 
+                              </tr>
+                              <tr>
+                                 <th>Quotation Deacription</th>
+                                 <td id="dq_quotation_deacription"></td> 
+                              </tr>
+                              <tr>
+                                 <td colspan="2" class="text-center">
+                                    <a href="#" id="dq_btn_booked" class="btn btn-primary">Booked</a>
+                                 </td> 
+                              </tr>
+                           </tbody>
+                        </table> 
+                  </div>
+                   
+               </div> 
+         </div> 
+      </div>
+   </div>
+</div> 
+{% endblock %}
