@@ -1,0 +1,166 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+<!-- Contact Start -->
+<div class="container-fluid contact py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-12 col-xl-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div>
+                    
+                    <div class="row g-4">
+                        <div class="col-lg-12 col-xl-12 wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="pricing-item bg-primary rounded text-center p-5 h-100">
+                                <div class="pb-4">
+                                    <h2 class="mb-4 {{ text_class }}">{{ package_info.title }}</h2>
+                                    <p class="mb-4">{{ package_info.description }}</p>
+                                    <h2 class="mb-0 {{ text_class }}">
+                                        Rs. {{ package_info.price }}<span class="text-body fs-5 fw-normal">/-</span>
+                                    </h2>
+                                </div>
+                                <div class="py-4">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-dark">Packages Name</th>
+                                            <th class="text-dark">Persons allowed</th>
+                                            <th class="text-dark">Price</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ package_info.title }}</td>
+                                            <td>{{ package_info.no_person }}</td>
+                                            <td>{{ package_info.price }} /-</td>
+                                        </tr> 
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td class="text-end text-dark" colspan="2">Sub Total</td>
+                                                <td>{{ package_info.price }} /-</td>
+                                            </tr>
+                                            {% for tax_item in tax_information %}
+                                            <tr>
+                                                <td class="text-end text-dark" colspan="2">{{tax_item.tax_title}} ({{tax_item.tex_apply_type}})</td>
+                                                <td>{{tax_item.tax_rate}} /-</td>
+                                            </tr>
+                                            {% endfor %}
+                                             
+                                            <tr>
+                                                <td class="text-end text-dark" colspan="2"><b>Total</b></td>
+                                                <td>{{totalPrice|floatformat:2 }} /-</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div> 
+                            </div>
+                        </div>
+                           
+                        <div class="col-12">
+                            <div class="d-flex justify-content-around bg-light rounded p-4">
+                                <a class="btn btn-xl-square btn-primary rounded-circle" href="#"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-xl-square btn-primary rounded-circle" href="#"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-xl-square btn-primary rounded-circle" href="#"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a class="btn btn-xl-square btn-primary rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="bg-light p-5 rounded h-100">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                        <p style="color: red; font-size: 12px;text-align: center;" class="msg">{{ message }}</p>
+                                    {% elif message.tags == 'success' %}
+                                        <p style="color: green; font-size: 12px;text-align: center;" class="msg">{{ message }}</p>
+                                    {% else %}
+                                        <p style="font-size: 12px;text-align: center;" class="msg">{{ message }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <h4 class="text-primary mb-4">User Information</h4>
+                    <form id="book-now-form" method="post" action="{% url 'bookingConfirmation' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="date" class="form-control border-0" id="booking_date"
+                                        name="booking_date" placeholder="Booking Date">
+                                    <label>Booking Date</label>
+                                </div>
+                                <label for="booking_date" class="error"></label>
+                            </div>  
+                            <div class="col-lg-12 col-xl-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0" id="first_name" name="first_name"
+                                        placeholder="Enter first Name">
+                                    <label>Your First Name</label>
+                                </div>
+                                <label for="first_name" class="error"></label>
+                            </div>
+                            <div class="col-lg-12 col-xl-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0" id="last_name" name="last_name"
+                                        placeholder="Enter last Name">
+                                    <label for="user_email">Your Last Name</label>
+                                </div>
+                                <label for="last_name" class="error"></label>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="phone" class="form-control border-0" id="user_phone_no"
+                                        name="user_phone_no" placeholder="Phone">
+                                    <label for="user_phone_no">Phone No</label>
+                                </div>
+                                <label for="user_phone_no" class="error"></label>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control border-0" id="user_email"
+                                        name="user_email" placeholder="Phone">
+                                    <label>Email</label>
+                                </div>
+                                <label for="user_email" class="error"></label>
+                            </div>  
+                            <div class="col-12 mt-0">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="terms" id="terms" checked> I read and agree terms and conditions</label>
+                                </div>
+                                <label for="terms" class="error"></label>
+                            </div>
+                            <div class="col-12">
+                                <input type="hidden" name="package_id" value="{{ package_info.id }}">
+                                <input type="hidden" name="totalPrice" value="{{ totalPrice }}"> 
+                                <button class="btn btn-primary w-100 py-3 cum-button">Book Now</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="rounded">
+                    <iframe class="rounded w-100" style="height: 400px;"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.33750346623!2d-73.97968099999999!3d40.6974881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1694259649153!5m2!1sen!2sbd"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+{% endblock %}

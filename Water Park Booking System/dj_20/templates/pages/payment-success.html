@@ -1,0 +1,76 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+ <!-- 404 Start -->
+        <div class="container-fluid bg-light py-1">
+            <div class="container py-2 text-center">
+                <div class="row justify-content-center pricing-item bg-primary">
+                    <div class="col-lg-6 wow fadeInUp pt-3 text-start" data-wow-delay="0.3s">
+                         <h4 class="text-warning"> Booking Date :{{ bookingData.booking_date|date:"d/m/Y" | default:"N/A" }}</h4> 
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp pt-3 text-end" data-wow-delay="0.3s">
+                          <a href="{% url 'downloadReceiptPDF' bookingData.id  %}"><button class="btn btn-dark cum-button">Download Receipt</button></a>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp pt-3" data-wow-delay="0.3s">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Payment Info</th> 
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Payment ID</td>
+                                <td>{{bookingData.payment_id}}</td> 
+                            </tr>
+                            <tr>
+                                <td>Order ID</td>
+                                <td>{{bookingData.Booking_id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Payment Status</td>
+                                <td>{{bookingData.payment_status}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Amount</td>
+                                <td>{{bookingData.total_price}} /-</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp pt-3" data-wow-delay="0.3s">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th colspan="2">User Info</th> 
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Name</td>
+                                <td>{{bookingData.first_name}} {{bookingData.last_name}}</td> 
+                            </tr>
+                            <tr>
+                                <td>Phone </td>
+                                <td>{{bookingData.phone_no}} </td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{bookingData.user_email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Package</td>
+                                <td>{{bookingData.package_title}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 404 End -->    
+{% endblock %}

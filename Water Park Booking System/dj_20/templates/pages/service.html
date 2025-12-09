@@ -1,0 +1,79 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+
+        <!-- Service Start -->
+        <div class="container-fluid service py-5" style="margin-top: 100px;">
+            <div class="container service-section py-5">
+                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                    <h4 class="text-primary">Our Service</h4>
+                    <h1 class="display-5 text-white mb-4">Explore Waterland Park service</h1>
+                    <p class="mb-0 text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+                    </p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-0 col-md-1 col-lg-2 col-xl-2"></div>
+                    <div class="col-md-10 col-lg-8 col-xl-8 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="service-days p-4">
+                            {% for timing in park_timings %}
+                            <div class="py-2 border-bottom border-top d-flex align-items-center justify-content-between flex-wrap"><h4 class="mb-0 pb-2 pb-sm-0">{{timing.day}}</h4> <p class="mb-0"><i class="fas fa-clock text-primary me-2"></i>{{timing.opening_time}} - {{timing.closing_time}}</p></div>
+                            {% endfor %} 
+                        </div>
+                    </div>
+                    <div class="col-0 col-md-1 col-lg-2 col-xl-2"></div>
+
+                    {% for service_item in park_service_list %}
+                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.{{ forloop.counter|add:forloop.counter }}s">
+                        <div class="service-item p-4">
+                            <div class="service-content">
+                                <div class="mb-4">
+                                    <i class="fas fa-{{service_item.service_icon}} fa-4x"></i>
+                                </div>
+                                <a href="#" class="h4 d-inline-block mb-3">{{service_item.title}}</a>
+                                <p class="mb-0">  {{ service_item.description|striptags|truncatewords:15|safe }} </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}   
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+
+
+<!-- Feature Start -->
+<div class="container-fluid feature py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% for facility_item in park_facility_list %}
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item">
+                    <img src="{{facility_item.image.url}}" class="img-fluid rounded w-100" alt="Image" style="height: 300px;">
+                    <div class="feature-content p-4">
+                        <div class="feature-content-inner">
+                            <h4 class="text-white">{{facility_item.title}}</h4>
+                            <p class="text-white"> {{ facility_item.description|striptags|truncatewords:30|safe }} </p>
+                            <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fa fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}  
+              
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+
+ 
+
+<!-- Team Start -->
+{% include 'include/testimonial.html' %}
+<!-- Team End -->      
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+<!-- About Start -->
+<div class="container-fluid about py-5">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div>
+                    <h4 class="text-primary">About Facility</h4>
+                    <h1 class="display-5 mb-4">{{park_facility_info.title}}</h1>
+                    <p class="mb-5">{{park_facility_info.description|safe}}</p>
+                    
+                </div>
+            </div>
+            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="position-relative rounded">
+                    <div class="rounded" style="margin-top: 40px;">
+                        <div class="row g-0">
+                            <div class="col-lg-12">
+                                <div class="rounded mb-4">
+                                    {% if park_facility_info.image %}
+                                    <img src="{{ park_facility_info.image.url }}" class="img-fluid rounded w-100" alt="">
+                                    {% else %}
+                                    <img src="{% static 'img/about.jpg' %}" class="img-fluid rounded w-100" alt="">
+                                    {% endif %}
+                                </div>
+                                 
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+  
+
+<!-- Team Start -->
+{% include 'include/team.html' %}
+<!-- Team End -->      
+{% endblock %}

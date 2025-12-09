@@ -1,0 +1,43 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+<!-- Feature Start -->
+<div class="container-fluid feature py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Our Features </h4>
+            <h1 class="display-5 mb-4">Explore Waterland Park Best Features</h1>
+            <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+            </p>
+        </div>
+        <div class="row g-4">
+            {% for facility_item in park_facility_list %}
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item">
+                    {% if facility_item.image %}
+                        <img src="{{ facility_item.image.url }}" class="img-fluid rounded w-100" alt="Image" style=" max-height: 310px;">
+                    {% else %}
+                        <img src="{% static 'img/default.jpg' %}" class="img-fluid rounded w-100" alt="Default Image">
+                    {% endif %}
+                    <div class="feature-content p-4">
+                        <div class="feature-content-inner">
+                            <h4 class="text-white">{{facility_item.title}}</h4>
+                            <p class="text-white">{{ facility_item.description|striptags|truncatewords:30|safe }}</p>
+                            <a href="{% url 'featureDetails' facility_item.slug %}" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fa fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+              
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+{% endblock %}

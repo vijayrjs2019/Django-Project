@@ -1,0 +1,8 @@
+mysqlclient = "mysqlclient>=2.1.1"
+Django = "Django>=4.2.3,<5" 
+python-dotenv = "python-dotenv>=1.0.0"
+django-tinymce4 = "django-tinymce4>=1.9.0"
+django-autoslug = "django-autoslug>=1.9.8"
+python-dotenv 
+razorpay
+xhtml2pdf

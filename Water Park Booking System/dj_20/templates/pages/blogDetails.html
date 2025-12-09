@@ -1,0 +1,154 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+<!-- About Start -->
+<div class="container-fluid about py-5">
+    <div class="container py-5">
+        <div class="row g-3">
+            <div class="col-xl-12 wow fadeInUp" data-wow-delay="0.2s">
+                <div>
+                    <h4 class="text-primary mb-3">{{ blog_info.title }}</h4>
+                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                        <!-- Author with icon/image if you have -->
+                        <div class="d-flex align-items-center">
+                            <img src="{% static 'img/default-user.jpg' %}" alt="author"
+                                style="width:40px;height:40px;object-fit:cover;margin-right:8px;">
+                            <div>
+                                <strong>{{ blog_info.author_name|default:"Admin" }}</strong><br>
+                                <small>{{ blog_info.created_at|date:"d F, Y" }}</small>
+                            </div>
+                        </div>
+                        <span>—</span>
+                        <span>6 mins read</span> <!-- You can set dynamic later -->
+                        <div class="ms-auto d-flex align-items-center gap-3">
+                            <!-- Comments Count -->
+                            <span><i class="fas fa-fire"></i> {{blog_comments.count}} Comments</span>
+                            <!-- Views Count -->
+                            <span><i class="far fa-thumbs-up"></i> 0 Like</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="position-relative rounded">
+                    <div class="rounded">
+                        <div class="row g-0">
+                            <div class="col-lg-12">
+                                <div class="rounded mb-4">
+                                    {% if blog_info.image %}
+                                    <img src="{{ blog_info.image.url }}" class="img-fluid rounded w-100" style="max-height: 500px;">
+                                    {% else %}
+                                    <img src="{% static 'img/default.jpg' %}" class="img-fluid rounded w-100" alt="">
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12 wow fadeInUp border-bottom" data-wow-delay="0.2s">
+                <div>
+                    <p class="mb-5">{{blog_info.content|safe}}</p>
+                </div>
+            </div>
+            <div class="col-xl-12 wow fadeInUp" data-wow-delay="0.2s">
+                <!-- Commet List -->
+                {% if blog_comments %}
+                    {% for comments in blog_comments %}
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <div class="d-flex mb-4 pb-4 border-bottom">
+            
+                                    <!-- User Avatar -->
+                                    <div class="me-3">
+                                        <img src="{% static 'img/default-user.jpg' %}" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+                                    </div>
+
+                                    <!-- Comment Content -->
+                                    <div>
+                                        <p class="mb-1 fw-bold">
+                                            {{comments.user_first_name}} {{comments.user_last_name}} <span class="text-muted small ms-2">{{comments.created_at|date:"M d, Y"}}</span>
+                                        </p>
+
+                                        <p class="mb-2" style="max-width:800px;">{{comments.message}} </p>
+        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="d-flex mb-4 pb-4 border-bottom">
+                            <p class="mb-1 fw-bold">
+                                No Comments Found
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                 
+                <div>
+                    <div class="row"> 
+                        <div class="col-12 mb-4">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {% if message.tags == 'error' %}
+                                        <p style="color: red; font-size: 12px;text-align: center;" class="msg">{{ message }}</p>
+                                    {% elif message.tags == 'success' %}
+                                        <p style="color: green; font-size: 12px;text-align: center;" class="msg">{{ message }}</p>
+                                    {% else %}
+                                        <p style="font-size: 12px;text-align: center;" class="msg">{{ message }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <form action="" id="blog_comments_form" method="post">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                                <div class="col-12 mb-4">
+                                    <h4 class="text-primary">Leave a Comment</h4>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <input type="email" class="form-control" placeholder="Email" name="user_email" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <textarea class="form-control" rows="5" placeholder="Your Comment" name="user_message" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <input type="hidden" name="blog_id" value="{{ blog_info.id }}">
+                                <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 cum-button">Submit Comment</button>
+                            </div>
+
+                        </div>
+                    </form>
+               </div> 
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+{% endblock %}

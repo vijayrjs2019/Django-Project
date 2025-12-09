@@ -1,0 +1,53 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Header Start -->
+{% include 'include/breadcrumb.html' %}
+<!-- Header End -->
+
+
+<!-- Blog Start -->
+<div class="container-fluid blog py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Our Blog</h4>
+            <h1 class="display-5 mb-4">Latest Blog & Articles</h1>
+            <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+            </p>
+        </div>
+        <div class="row g-4">
+            {% if blog_list %}
+                {% for blog_item in blog_list %}
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <a href="#">
+                                    <img src="{{blog_item.image.url}}" class="img-fluid w-100 rounded-top" alt="Image" style="height: 340px !important;">
+                                </a>
+                                <div class="blog-category py-2 px-4">{{blog_item.blogCategory}}</div>
+                                <div class="blog-date"><i class="fas fa-clock me-2"></i>{{blog_item.created_at|date:"M d, Y"}}</div>
+                            </div>
+                            <div class="blog-content p-4">
+                                <a href="#" class="h4 d-inline-block mb-4">{{blog_item.title}}</a>
+                                <p class="mb-4">{{ blog_item.content|truncatewords:20|safe }}</p>
+                                <a href="{% url 'blogDetails' blog_item.slug %}" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                  <div class="col-lg-12 wow fadeInUp text-center" data-wow-delay="0.2s">
+                    <div class="blog-item">
+                        <div class="blog-content p-4">
+                            <a href="#" class="h4 d-inline-block mb-4">No Blog Found</a>
+                        </div>
+                    </div>
+                  </div>
+            {% endif %}
+              
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+{% endblock %}

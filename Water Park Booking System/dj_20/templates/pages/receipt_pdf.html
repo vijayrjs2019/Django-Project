@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; }
+        h1 { color: #336699; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .total { text-align: right; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">{{siteData.site_name}}</h1>
+    <p style="text-align: center;"><strong>{{siteData.site_email}}</strong> | <strong>{{siteData.site_phone}}</strong> | <strong>{{siteData.site_address}}</strong></p>
+    <p style="text-align: center;"><strong>{{devedeveloped_by}}</strong></p>
+    <div><hr style="height: 3px; background: #000;"></div>
+    <table>
+        <tr>
+            <td>
+                <h2>Receipt #: {{bookingData.id}}</h2>
+            </td>
+            <td style="text-align: right;">
+                <h2>Booking Date: {{bookingData.booking_date|date:"d/m/Y" | default:"N/A"}}</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <thead>
+                        <tr  style=" background: #336699;color: #fff;">
+                            <th>Paid By</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr><td>{{bookingData.first_name}} {{bookingData.last_name}}</td> </tr>    
+                            <tr><td>{{bookingData.user_email}}</td></tr>
+                            <tr><td>{{bookingData.phone_no}}</td> </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <thead>
+                        <tr  style=" background: #336699;color: #fff;">
+                            <th>Payment Info</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr><td>Order ID</td> <td>{{bookingData.Booking_id}}</td> </tr>    
+                            <tr><td>Payment ID</td> <td>{{bookingData.payment_id}}</td></tr>
+                            <tr><td>Payment Status</td><td>{{bookingData.payment_status}}</td> </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            
+        </tr>
+    </table>  
+    <table>
+        <thead>
+            <tr  style=" background: #336699;color: #fff;">
+                 <th>Title</th><th>Description</th><th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr> 
+                <td>{{bookingData.package_title}}</td>
+                <td>{{bookingData.package_description}}</td>
+                <td>{{bookingData.price|floatformat:2}}</td> 
+            </tr> 
+            <tr> 
+                <td colspan="2" style="text-align: right;">Sub Total</td>
+                <td>{{bookingData.price|floatformat:2}}</td>
+            </tr> 
+            <tr> 
+                <td colspan="2" style="text-align: right;">Tax</td>
+                <td>{{bookingData.tax_amount|floatformat:2}}</td>
+            </tr> 
+             <tr> 
+                <td colspan="2" style="text-align: right;">Total </td>
+                <td>{{bookingData.total_price|floatformat:2}}</td>
+            </tr> 
+        </tbody>
+    </table> 
+</body>
+</html>

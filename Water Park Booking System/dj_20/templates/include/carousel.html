@@ -1,0 +1,66 @@
+{% load static %}
+<div class="header-carousel owl-carousel">
+    {% for sliderItem in slider_list %}
+    <div class="header-carousel-item">
+        <img src="{{sliderItem.image.url}}" class="img-fluid w-100" alt="Image">
+        <div class="carousel-caption">
+            <div class="container align-items-center py-4">
+                <div class="row g-5 align-items-center">
+                    <div class="col-xl-7 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s"
+                        style="animation-delay: 1s;">
+                        <div class="text-start">
+                            <h4 class="text-primary text-uppercase fw-bold mb-4">{{sliderItem.title}}</h4>
+                            <h1 class="display-4 text-uppercase text-white mb-4">{{sliderItem.sub_title}}</h1>
+                            <p class="mb-4 fs-5">{{ sliderItem.description|truncatewords:20 }}</p>
+                            <div class="d-flex flex-shrink-0">
+                                <a class="btn btn-primary rounded-pill text-white py-3 px-5" href="#">Our Packages</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 fadeInRight animated" data-animation="fadeInRight" data-delay="1s"
+                        style="animation-delay: 1s;">
+                        <div class="ticket-form p-5">
+                            <h2 class="text-dark text-uppercase mb-4">book your ticket</h2>
+                            <form method="post" action="{% url 'bookingConfirmation' %}" enctype="multipart/form-data" id="home-booking-form">
+                                {% csrf_token %}
+                                <div class="row g-4">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control border-0 py-2" id="first_name" name="first_name"
+                                            placeholder="Your first Name" required>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control border-0 py-2" id="last_name" name="last_name"
+                                            placeholder="Your last Name" required>
+                                    </div>
+                                    <div class="col-12 col-xl-12">
+                                        <input type="email" class="form-control border-0 py-2" id="user_email" name="user_email"
+                                            placeholder="Your Email" required>
+                                    </div>
+                                    <div class="col-12 col-xl-12">
+                                        <input type="phone" class="form-control border-0 py-2" id="user_phone_no" name="user_phone_no"
+                                            placeholder="Phone" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <select class="form-select border-0 py-2"  name="package_id" id="package_id" required>
+                                            <option value="" selected>Select Packages</option>
+                                            {% for package in packages %}
+                                            <option value="{{package.id}}">{{package.title}}</option>
+                                            {% endfor %} 
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <input class="form-control border-0 py-2" type="date" name="booking_date" id="booking_date" placeholder="Booking Date" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-2 px-5 cum-button">Book Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

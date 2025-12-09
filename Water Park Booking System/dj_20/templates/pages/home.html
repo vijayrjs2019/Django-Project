@@ -1,0 +1,322 @@
+{% extends 'main_templates.html' %}
+{% block content %}
+{% load static %}
+<!-- Feature Start -->
+<div class="container-fluid feature py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% for facility_item in park_facility_list %}
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feature-item">
+                    <img src="{{facility_item.image.url}}" class="img-fluid rounded w-100" alt="Image" style="height: 300px;">
+                    <div class="feature-content p-4">
+                        <div class="feature-content-inner">
+                            <h4 class="text-white">{{facility_item.title}}</h4>
+                            <p class="text-white"> {{ facility_item.description|striptags|truncatewords:14|safe }} </p>
+                            <a href="{% url 'featureDetails' facility_item.slug %}" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fa fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}  
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+
+<!-- About Start -->
+<div class="container-fluid about pb-5">
+    <div class="container pb-5">
+        <div class="row g-5">
+            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div>
+                    <h4 class="text-primary">About {{ site_name|default:"WaterLand" }}</h4>
+                    <h1 class="display-5 mb-4">{{about_us_info.title}}</h1>
+                    <p class="mb-5">{{about_us_info.description}}</p>
+                    <div class="row g-4">
+                        {% for service_item in park_service_list %}
+                        <div class="col-md-6">
+                            <div class="d-flex">
+                                <div class="me-3"><i class="fas fa-{{service_item.service_icon}} fa-3x text-primary"></i></div>
+                                <div>
+                                    <h4>{{service_item.title}}</h4>
+                                    <p>{{ service_item.description|striptags|truncatewords:15|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                           
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="position-relative rounded">
+                    <div class="rounded" style="margin-top: 40px;">
+                        <div class="row g-0">
+                            <div class="col-lg-12">
+                                <div class="rounded mb-4">
+                                    <img src="{% static 'img/about.jpg' %}" class="img-fluid rounded w-100" alt="">
+                                </div>
+                                <div class="row gx-4 gy-0">
+                                    <div class="col-6">
+                                        <div class="counter-item bg-primary rounded text-center p-4 h-100">
+                                            <div class="counter-item-icon mx-auto mb-3">
+                                                <i class="fas fa-thumbs-up fa-3x text-white"></i>
+                                            </div>
+                                            <div class="counter-counting mb-3">
+                                                <span class="text-white fs-2 fw-bold" data-toggle="counter-up">{{about_us_info.happy_visitors|default:"0"}}</span>
+                                                <span class="h1 fw-bold text-white">K +</span>
+                                            </div>
+                                            <h5 class="text-white mb-0">Happy Visitors</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="counter-item bg-dark rounded text-center p-4 h-100">
+                                            <div class="counter-item-icon mx-auto mb-3">
+                                                <i class="fas fa-certificate fa-3x text-white"></i>
+                                            </div>
+                                            <div class="counter-counting mb-3">
+                                                <span class="text-white fs-2 fw-bold" data-toggle="counter-up">{{about_us_info.awwards_winning|default:"0"}}</span>
+                                                <span class="h1 fw-bold text-white"> +</span>
+                                            </div>
+                                            <h5 class="text-white mb-0">Awwards Winning</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded bg-primary p-4 position-absolute d-flex justify-content-center" style="width: 90%; height: 80px; top: -40px; left: 50%; transform: translateX(-50%);">
+                        <h3 class="mb-0 text-white">{{about_us_info.years_experiance|default:"0"}} Years Experiance</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+<!-- Service Start -->
+<div class="container-fluid service py-5">
+    <div class="container service-section py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Our Service</h4>
+            <h1 class="display-5 text-white mb-4">Explore Waterland Park service</h1>
+            <p class="mb-0 text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-0 col-md-1 col-lg-2 col-xl-2"></div>
+            <div class="col-md-10 col-lg-8 col-xl-8 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="service-days p-4">
+                    {% for timing in park_timings %}
+                    <div class="py-2 border-bottom border-top d-flex align-items-center justify-content-between flex-wrap"><h4 class="mb-0 pb-2 pb-sm-0">{{timing.day}}</h4> <p class="mb-0"><i class="fas fa-clock text-primary me-2"></i>{{timing.opening_time}} - {{timing.closing_time}}</p></div>
+                    {% endfor %} 
+                </div>
+            </div>
+            <div class="col-0 col-md-1 col-lg-2 col-xl-2"></div>
+            {% for service_item in park_service_list %}
+            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.{{ forloop.counter|add:forloop.counter }}s">
+                <div class="service-item p-4">
+                    <div class="service-content">
+                        <div class="mb-4">
+                            <i class="fas fa-{{service_item.service_icon}} fa-4x"></i>
+                        </div>
+                        <a href="#" class="h4 d-inline-block mb-3">{{service_item.title}}</a>
+                        <p class="mb-0">  {{ service_item.description|striptags|truncatewords:15|safe }} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+               
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
+
+<!-- Ticket Packages Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-12 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="packages-item h-100">
+                    <h4 class="text-primary">Ticket Packages</h4>
+                    <h1 class="display-5 mb-4">Choose The Best Packages For Your Family</h1>
+                    <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+                    </p>
+                    <p><i class="fa fa-check text-primary me-2"></i>Best Waterpark in the world</p>
+                    <p><i class="fa fa-check text-primary me-2"></i>Best Packages For Your Family</p>
+                    <p><i class="fa fa-check text-primary me-2"></i>Enjoy Various Kinds of Water Park</p>
+                    <p class="mb-5"><i class="fa fa-check text-primary me-2"></i>Win Up To 3 Free All Day Tickets</p>
+                    <a href="#" class="btn btn-primary rounded-pill py-3 px-5"> Book Now</a>
+                </div>
+            </div>
+            {% for package in package_list %} 
+                 {% with bg_class=forloop.counter0|divisibleby:2|yesno:"bg-dark,bg-primary" text_class=forloop.counter0|divisibleby:2|yesno:"text-primary,text-dark" %}
+                    <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
+                        <div class="pricing-item {{ bg_class }} rounded text-center p-5 h-100">
+                            <div class="pb-4 border-bottom">
+                                <h2 class="mb-4 {{ text_class }}">{{ package.title }}</h2>
+                                <p class="mb-4">{{ package.description }}</p>
+                                <h2 class="mb-0 {{ text_class }}">
+                                    Rs. {{ package.price }}<span class="text-body fs-5 fw-normal">/-</span>
+                                </h2>
+                            </div>
+                            <div class="py-4">
+                                <p class="mb-4"><i class="fa fa-check {{ text_class }} me-2"></i>All Access To Waterpark</p>
+                                <p class="mb-4"><i class="fa fa-check {{ text_class }} me-2"></i>Get Two Gazebo</p>
+                                <p class="mb-4"><i class="fa fa-check {{ text_class }} me-2"></i>Free Soft Drinks</p>
+                                <p class="mb-4"><i class="fa fa-check {{ text_class }} me-2"></i>Get Four Lockers</p>
+                                <p class="mb-4"><i class="fa fa-check {{ text_class }} me-2"></i>Free Four Towels</p>
+                                <p class="mb-4"><i class="fa fa-check {{ text_class }} me-2"></i>{{ package.no_person }} persons allowed</p>
+                            </div>
+                            <a href="#" class="btn btn-light rounded-pill py-3 px-5"> Book Now</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+<!-- Ticket Packages End -->
+
+
+<!-- Attractions Start -->
+<div class="container-fluid attractions py-5">
+    <div class="container attractions-section py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Attractions</h4>
+            <h1 class="display-5 text-white mb-4">Explore WaterLand Park Attractions</h1>
+            <p class="text-white mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+            </p>
+        </div>
+        <div class="owl-carousel attractions-carousel wow fadeInUp" data-wow-delay="0.1s">
+            {% for attractions_item in park_attractions_list %}
+            <div class="attractions-item wow fadeInUp" data-wow-delay="0.{{ forloop.counter|add:forloop.counter }}s">
+                <img src="{{attractions_item.image.url}}" class="img-fluid rounded w-100" alt="">
+                <a href="#" class="attractions-name">{{attractions_item.title}}</a>
+            </div>
+            {% endfor %}
+             
+        </div>
+    </div>
+</div>
+<!-- Attractions End -->
+
+<!-- Gallery Start -->
+<div class="container-fluid gallery pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Our Gallery</h4>
+            <h1 class="display-5 mb-4">Captured Moments In Waterland</h1>
+            <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+            </p>
+        </div>
+        <div class="row g-4">
+            {% for gl_item in gallery_image %}
+                {% with pos=forloop.counter0|add:1 %}
+                    {% with block_pos=pos|add:"-1"|divisibleby:5 %}
+                        {% if pos|add:"-1"|divisibleby:5 %}
+                            {% comment %} block_pos = 1 {% endcomment %}
+                            <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        {% else %}
+                            <div class="col-md-3 wow fadeInUp" data-wow-delay="0.2s">
+                        {% endif %}
+                    {% endwith %}
+                {% endwith %}
+
+                    <div class="gallery-item">
+                        <img src="{{ gl_item.image.url }}" class="img-fluid rounded w-100 h-100" alt="">
+                        <div class="search-icon">
+                            <a href="{{ gl_item.image.url }}" class="btn btn-light btn-lg-square rounded-circle" data-lightbox="Gallery-{{ forloop.counter }}">
+                                <i class="fas fa-search-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+<!-- Gallery End -->
+
+
+<!-- Blog Start -->
+<div class="container-fluid blog pb-5">
+    <div class="container pb-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <h4 class="text-primary">Our Blog</h4>
+            <h1 class="display-5 mb-4">Latest Blog & Articles</h1>
+            <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <a href="#">
+                            <img src="{% static 'img/blog-2.jpg' %}" class="img-fluid w-100 rounded-top" alt="Image">
+                        </a>
+                        <div class="blog-category py-2 px-4">Vacation</div>
+                        <div class="blog-date"><i class="fas fa-clock me-2"></i>August 19, 2025</div>
+                    </div>
+                    <div class="blog-content p-4">
+                        <a href="#" class="h4 d-inline-block mb-4">Why Children Dont Like Getting Out Of The Water</a>
+                        <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam aspernatur nam quidem porro sapiente, neque a quibusdam....
+                        </p>
+                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <a href="#">
+                            <img src="{% static 'img/blog-3.jpg' %}" class="img-fluid w-100 rounded-top" alt="Image">
+                        </a>
+                        <div class="blog-category py-2 px-4">Insight</div>
+                        <div class="blog-date"><i class="fas fa-clock me-2"></i>August 19, 2025</div>
+                    </div>
+                    <div class="blog-content p-4">
+                        <a href="#" class="h4 d-inline-block mb-4">5 Ways To Enjoy Waterland This Spring Break</a>
+                        <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam aspernatur nam quidem porro sapiente, neque a quibusdam....
+                        </p>
+                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <a href="#">
+                            <img src="{% static 'img/blog-1.jpg' %}" class="img-fluid w-100 rounded-top" alt="Image">
+                        </a>
+                        <div class="blog-category py-2 px-4">Insight</div>
+                        <div class="blog-date"><i class="fas fa-clock me-2"></i>August 19, 2025</div>
+                    </div>
+                    <div class="blog-content p-4">
+                        <a href="#" class="h4 d-inline-block mb-4">3 Tips for Your Family Spring Break at Amusement Park</a>
+                        <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam aspernatur nam quidem porro sapiente, neque a quibusdam....
+                        </p>
+                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+
+<!-- Team Start -->
+{% include 'include/team.html' %}
+<!-- Team End -->
+
+
+<!-- Testimonial Start -->
+{% include 'include/testimonial.html' %}
+<!-- Testimonial End -->
+{% endblock %}
